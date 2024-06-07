@@ -1,6 +1,8 @@
 
 import './App.css'
 
+import ContactList from './Components/ContactList/ContactList';
+
 function App() {
   const list = [
     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -13,6 +15,7 @@ function App() {
     <>
       <div>
         <h1>Phonebook</h1>
+        <ContactList list={list} />
      </div>
     </>
   )
