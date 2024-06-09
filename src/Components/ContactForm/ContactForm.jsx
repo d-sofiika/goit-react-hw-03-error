@@ -2,7 +2,8 @@ import { Form, Formik, Field } from "formik"
 import { useId } from "react";
 import * as Yup from "yup";
 import { ErrorMessage } from "formik";
-import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js'
+import { nanoid } from 'nanoid'
+import css from "./contactForm.module.css"
 
 const ContactForm = ({onAdd}) => {
 
@@ -12,11 +13,11 @@ const initialValues = {
   
 };
     const handleSubmit = (values, actions) => {
-        onAdd{
-            id: nanoid()
-            name: values.username
-                numb: values.number
-        }
+        onAdd({
+            id: nanoid(),
+            name: values.username,
+                number: values.number
+        })
         actions.resetForm();
     }
    const nameFieldId = useId();
@@ -30,14 +31,23 @@ const initialValues = {
 
   return (
       <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={FeedbackSchema} >
-          <Form>
-              <label htmlFor={nameFieldId}>Name</label>
-              <Field type="text" name="username" />
-                <ErrorMessage name="username" component="span" />
-              <label htmlFor={numberFieldId}>Number</label>
-              <Field type="tel" name="numb" />
-                <ErrorMessage name="numb" component="span" />
-              <button type="submit">Add contact</button>
+      <Form className={css.form}>
+        
+              <div className={css.formGroup}>
+          <label className={css.label} htmlFor={nameFieldId}>Name</label>
+          <Field className={css.input} id={nameFieldId} type="text" name="username" />
+          <ErrorMessage className={css.message} name="username" component="span" />
+        </div>
+
+        <div className={css.formGroup}>
+          <label className={css.label} htmlFor={numberFieldId}>Number</label>
+          <Field id={numberFieldId} className={css.input} type="tel" name="number" />
+          <ErrorMessage className={css.message} name="number" component="span" />
+        </div>
+
+        <div className={css.buttonGroup}>
+          <button className={css.btn} type="submit">Add contact</button>
+        </div>
           </Form>
     </Formik>
   )
